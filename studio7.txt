@@ -1,0 +1,26 @@
+1. Fausto Tommasi, Chris Lucas
+
+2.
+
+#include <stdio.h>
+int main(){
+  printf("Hello Chris. Hello Fausto\n");
+}
+
+//-----------------------------------------------------------
+
+#include <unistd.h>
+#include <stdio.h>
+
+
+int main(int argc, char** argv){
+  while(1){
+    char buf[256];
+    fgets(buf,256,stdin);
+    if(buf == NULL)
+      break;
+    printf("Program 2 got : %s\n",buf);
+  }
+}
+
+3.
