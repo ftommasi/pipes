@@ -4,25 +4,37 @@
 
 int main(int argc, char** argv){
 
-  int child_pid1 = fork();
-  int child_pid2 = fork();
-  if(child_pid1 != 0){
-    waitpid(child_pid1,NULL,0);
-  }
-  
-  else{
+  int fd[2];
+  pipe(fd);
+
+  int pid = fork();
+  if(!pid){
+    waitpid(pid,NULL,0);
+  } else {
+    dup2(fd[1], STDOUT_FILENO);
+    close(fd[0]);
     //child 1 exec
-    char** my_argv
-    execvp("program1",);
+    char* cmd = "./program1";
+    char* myargv[] = {"program1", '\0'};
+    int ret = execvp( cmd, myargv );
+    if( ret == -1 ) perror("Error exec'ing program1");
   }
-   if(child_pid2 != 0){
-    waitpid(child_pid2,NULL,0);
-  }
-  
-  else{
+
+  pid = fork();
+  if(!pid){
+    waitpid(pid,NULL,0);
+  } else {
+    dup2(fd[0], STDIN_FILENO);
+    close(fd[1]);
     //child 2 exec
+    char* cmd = "./program2";
+    char* myargv[] = {"program2", '\0'};
+    int ret = execvp( cmd, myargv );
+    if( ret == -1 ) perror("Error exec'ing program2");
   }
- 
 
+  close(fd[1]);
+  close(fd[0]);
 
+  return 0;
 }

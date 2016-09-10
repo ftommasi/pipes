@@ -2,25 +2,22 @@
 
 2.
 
-#include <stdio.h>
-int main(){
-  printf("Hello Chris. Hello Fausto\n");
-}
+Hello Chris. Hello Fausto
+h
+Program 2 got : h
 
-//-----------------------------------------------------------
+^C
 
-#include <unistd.h>
-#include <stdio.h>
+3. fd[0] is the read end, fd[1] is the write end.
+4. the second argument (referred to as newfd) is closed.
+5. dup2(fd[1], STDOUT_FILENO);
+   dup2(fd[0], STDIN_FILENO);
+6. 
+Program 2 got : Hello Chris. Hello Fausto
 
+^C
 
-int main(int argc, char** argv){
-  while(1){
-    char buf[256];
-    fgets(buf,256,stdin);
-    if(buf == NULL)
-      break;
-    printf("Program 2 got : %s\n",buf);
-  }
-}
+7.
+Program 2 got : Hello Chris. Hello Fausto
 
-3.
+8. makes shell pipelining possible, programmer does not need to test different sources of input
