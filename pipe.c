@@ -10,7 +10,8 @@ int main(int argc, char** argv){
   int pid = fork();
   if(!pid){
     waitpid(pid,NULL,0);
-  } else {
+  } 
+  else {
     dup2(fd[1], STDOUT_FILENO);
     close(fd[0]);
     //child 1 exec
@@ -23,7 +24,8 @@ int main(int argc, char** argv){
   pid = fork();
   if(!pid){
     waitpid(pid,NULL,0);
-  } else {
+  } 
+  else {
     dup2(fd[0], STDIN_FILENO);
     close(fd[1]);
     //child 2 exec
